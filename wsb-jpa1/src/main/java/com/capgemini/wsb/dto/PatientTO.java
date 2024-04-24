@@ -1,48 +1,21 @@
-package com.capgemini.wsb.persistence.entity;
+package com.capgemini.wsb.dto;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "PATIENT")
-public class PatientEntity {
+public class PatientTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String firstName;
-
-    @Column(nullable = false)
     private String lastName;
-
-    @Column(nullable = false)
     private String telephoneNumber;
-
     private String email;
-
-    @Column(nullable = false)
     private String patientNumber;
-
-    @Column(nullable = false)
     private LocalDate dateOfBirth;
-
-    @Column(nullable = false)
+    private List<AddressTO> addresses;
+    private List<VisitTO> visits;
     private LocalDateTime createdAt;
-
-    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "PATIENT_TO_ADDRESS",
-            joinColumns = @JoinColumn(name = "PATIENT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID")
-    )
-    private List<AddressEntity> addresses;
-
-    @OneToMany(mappedBy = "doctor", orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<VisitEntity> visits;
 
     public Long getId() {
         return id;
@@ -100,19 +73,19 @@ public class PatientEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public List<AddressEntity> getAddresses() {
+    public List<AddressTO> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<AddressEntity> addresses) {
+    public void setAddresses(List<AddressTO> addresses) {
         this.addresses = addresses;
     }
 
-    public List<VisitEntity> getVisits() {
+    public List<VisitTO> getVisits() {
         return visits;
     }
 
-    public void setVisits(List<VisitEntity> visits) {
+    public void setVisits(List<VisitTO> visits) {
         this.visits = visits;
     }
 
@@ -120,8 +93,24 @@ public class PatientEntity {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public PatientTO setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
+    @Override
+    public String toString() {
+        return "PatientTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", telephoneNumber='" + telephoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", patientNumber='" + patientNumber + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", addresses=" + addresses +
+                ", visits=" + visits +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
