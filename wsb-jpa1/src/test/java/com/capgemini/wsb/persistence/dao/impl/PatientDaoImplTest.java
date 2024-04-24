@@ -27,7 +27,7 @@ public class PatientDaoImplTest {
         List<PatientEntity> result = patientDao.findByLastName(lastName);
 
         // then
-        assertEquals(1, result.size()); // Assuming only one patient with last name "Doe" exists in the database
+        assertEquals(1, result.size());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class PatientDaoImplTest {
         List<PatientEntity> result = patientDao.findPatientsWithMoreThanXVisits(minVisits);
 
         // then
-        assertEquals(0, result.size()); // Assuming there are 2 patients with more than 20 visits in the database
+        assertEquals(0, result.size());
     }
 
     @Test
@@ -48,6 +48,6 @@ public class PatientDaoImplTest {
         List<PatientEntity> result = patientDao.findPatientsCreatedWithinAMonth();
 
         // then
-        assertEquals(2, result.size()); // Assuming there are 2 patients created within a month in the database
+        assertEquals(2, result.size());
     }
 }
